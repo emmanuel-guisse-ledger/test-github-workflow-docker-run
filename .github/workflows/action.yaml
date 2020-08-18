@@ -14,16 +14,15 @@ jobs:
   build:
     name: Clone, Publish
     runs-on: ubuntu-latest
+    container: docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
 
     steps:
       - name: Clone
         uses: actions/checkout@v2
       - name: Docker login
-        run: echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - name: Pull Docker image
-        run: docker pull "docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest"
-      - name: Run image
-        run: |
-          docker run --rm -v "$(pwd):/mnt:rw" docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest echo "Hello world!"
+        using: 'docker'
+        image: 'docker://docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest'
+        args:
+          - 'echo salut'
+
+  
