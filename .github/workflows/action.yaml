@@ -23,7 +23,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GITHUB_ACTOR: ${{ github.actor }}
-      - nmae: List images
+      - name: List images
         run: docker image ls docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow
       - name: Pull Docker image
         run: docker pull docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
