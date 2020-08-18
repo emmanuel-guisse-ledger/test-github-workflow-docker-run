@@ -19,12 +19,10 @@ jobs:
       - name: Clone
         uses: actions/checkout@v2
       - name: Docker Login
-        run: echo $GITHUB_TOKEN | docker login 'docker.pkg.github.com' -u '$GITHUB_ACTOR' --password-stdin
+        run: echo $GITHUB_TOKEN | docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GITHUB_ACTOR: ${{ github.actor }}
-      - name: Pull Docker image eguisse/mddoc:latest
-        run: docker pull eguisse/mddoc:latest
       - name: Pull Docker image
         run: docker pull docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
       - name: Run image
