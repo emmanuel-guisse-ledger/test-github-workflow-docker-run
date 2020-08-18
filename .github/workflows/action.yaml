@@ -14,15 +14,13 @@ jobs:
   build:
     name: Clone, Publish
     runs-on: ubuntu-latest
-    container: docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
 
     steps:
       - name: Clone
         uses: actions/checkout@v2
       - name: Docker login
-        using: 'docker'
+        uses: 'docker'
         image: 'docker://docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest'
         args:
           - 'echo salut'
 
-  
