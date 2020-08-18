@@ -23,6 +23,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GITHUB_ACTOR: ${{ github.actor }}
+      - name: Pull Docker image eguisse/mddoc:latest
+        run: docker pull eguisse/mddoc:latest
       - name: Pull Docker image
         run: docker pull docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
       - name: Run image
