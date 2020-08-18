@@ -18,6 +18,7 @@ jobs:
     steps:
       - name: Clone
         uses: actions/checkout@v2
+      - name: Docker Login
         run: echo $GITHUB_TOKEN | docker login 'docker.pkg.github.com' -u '$GITHUB_ACTOR' --password-stdin
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
