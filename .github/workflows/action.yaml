@@ -18,8 +18,10 @@ jobs:
     steps:
       - name: Clone
         uses: actions/checkout@v2
-
-      - name: Build and publish to GitHub Packages
-        uses: docker://docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
-        args:
-          - 'echo bonjour'
+      - name: Docker login
+        run: docker login docker.pkg.github.com -u $GITHUB_ACTOR -p $GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Run image
+        run: |
+          docker run --rm -v "$(pwd):/mnt:rw" docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest echo "Hello world!"
