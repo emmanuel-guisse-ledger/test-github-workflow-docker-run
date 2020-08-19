@@ -24,7 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GITHUB_ACTOR: ${{ github.actor }}
       - name: Docker info
-        run: cat /tmp/.docker/config.json
+        run: env
       - name: Pull Docker image
         run: docker --debug --config /tmp/.docker pull docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
       - name: List Docker image
