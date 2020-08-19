@@ -19,16 +19,16 @@ jobs:
       - name: Clone
         uses: actions/checkout@v2
       - name: Docker Login
-        run: echo $GITHUB_TOKEN | docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
+        run: echo $GITHUB_TOKEN | docker --debug --config /tmp/.docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GITHUB_ACTOR: ${{ github.actor }}
-      - name: List images
-        run: docker image ls docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow
+      - name: View credential
+        run: docker login
       - name: Pull Docker image
-        run: docker pull docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
+        run: docker --debug --config /tmp/.docker pull docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
+      - name: List Docker image
+        run: docker images
       - name: Run image
         run: |
-          docker run --rm -v "$(pwd):/mnt:rw" docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest echo "Hello world!"
-
-
+          docker --debug --config /tmp/.docker run --rm -v "$(pwd):/mnt:rw" docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest echo "Hello world!"
