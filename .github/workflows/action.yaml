@@ -19,14 +19,14 @@ jobs:
       - name: Clone
         uses: actions/checkout@v2
       - name: Docker Login
-        run: echo $GITHUB_TOKEN | docker --debug --config /tmp/.docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
+        run: echo $GITHUB_TOKEN | docker --debug --config login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GITHUB_ACTOR: ${{ github.actor }}
       - name: Docker info
-        run: docker --debug --config /tmp/.docker images docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow
+        run: docker --debug images docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow
       - name: Pull Docker image
-        run: docker --debug --config /tmp/.docker pull docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:latest
+        run: docker --debug pull docker.pkg.github.com/emmanuel-guisse-ledger/test-github-workflow/test-github-workflow:0.0.2
       - name: List Docker image
         run: docker images
       - name: Run image
